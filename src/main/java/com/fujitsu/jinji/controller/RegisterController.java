@@ -19,9 +19,14 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("hr_model") UserHR_Model hr_model,Model model){
+    public String registerUser(@ModelAttribute("hr_model") UserHR_Model hr_model){
         userHr_service.saveUserHR(hr_model);
-        model.addAttribute("userPending", userHr_service.findAllPending());
         return "redirect:register";
+    }
+
+    @GetMapping("/viewpending")
+    public String viewPendingUserHr(Model model){
+        model.addAttribute("userPending", userHr_service.findAllPending());
+        return "viewAllPending";
     }
 }

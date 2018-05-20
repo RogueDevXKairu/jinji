@@ -26,6 +26,7 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="./css/themes/all-themes.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 
 </head>
 <body class="theme-red">
@@ -438,7 +439,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="active">
+                <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">assignment</i>
                         <span>Forms</span>
@@ -450,7 +451,7 @@
                         <li>
                             <a href="../../pages/forms/advanced-form-elements.html">Advanced Form Elements</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="../../pages/forms/form-examples.html">Form Examples</a>
                         </li>
                         <li>
@@ -464,7 +465,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">view_list</i>
                         <span>Tables</span>
@@ -476,7 +477,7 @@
                         <li>
                             <a href="../../pages/tables/jquery-datatable.html">Jquery Datatables</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="../../pages/tables/editable-table.html">Editable Tables</a>
                         </li>
                     </ul>
@@ -791,14 +792,89 @@
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
-            <h2>FORM EXAMPLES</h2>
+            <h2>
+                EDITABLE TABLE
+                <small>Taken from <a href="https://github.com/mindmup/editable-table" taget="_blank">github.com/mindmup/editable-table</a></small>
+            </h2>
         </div>
-
-        <th:block th:each="user:${userPending}">
-            <h1 th:text="${user.getHr_id()}"></h1>
-        </th:block>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            EXAMPLE
+                            <small>You can edit any columns except header/footer</small>
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <table id="user_hr_pending" class="table-striped" style="max-width: none; table-layout: fixed;">
+                            <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>First Name</th>
+                                <th>Middle Name</th>
+                                <th>Last Name</th>
+                                <th>Mobile Number</th>
+                                <th>Email</th>
+                                <th>Account Status</th>
+                                <th>Approved Date</th>
+                                <th>Approved By</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <th:block th:each="user:${userPending}">
+                                    <tr>
+                                        <td th:text="${user.getHr_id()}"></td>
+                                        <td th:text="${user.getHr_username()}"></td>
+                                        <td th:text="${user.getHr_password()}"></td>
+                                        <td th:text="${user.getHr_fname()}"></td>
+                                        <td th:text="${user.getHr_mname()}"></td>
+                                        <td th:text="${user.getHr_lname()}"></td>
+                                        <td th:text="${user.getHr_mobile_number_primary()}"></td>
+                                        <td th:text="${user.getHr_email_primary()}"></td>
+                                        <td th:text="${user.getHrAccountStatus()}"></td>
+                                        <td th:text="${user.getHr_approved_account_date()}"></td>
+                                        <td th:text="${user.getHr_approved_by_id()}"></td>
+                                    </tr>
+                                </th:block>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>First Name</th>
+                                <th>Middle Name</th>
+                                <th>Last Name</th>
+                                <th>Mobile Number</th>
+                                <th>Email</th>
+                                <th>Account Status</th>
+                                <th>Approved Date</th>
+                                <th>Approved By</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
 </body>
 </html>
 
@@ -817,11 +893,23 @@
 <!-- Waves Effect Plugin Js -->
 <script src="./plugins/node-waves/waves.js"></script>
 
+<!-- Editable Table Plugin Js -->
+<script src="./plugins/editable-table/mindmup-editabletable.js"></script>
+
 <!-- Custom Js -->
 <script src="./js/admin.js"></script>
+<script src="./js/pages/tables/editable-table.js"></script>
 
 <!-- Demo Js -->
 <script src="./js/demo.js"></script>
 
 <!-- Input Mask Plugin Js -->
 <script src="./plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" language="JavaScript">
+    $(document).ready( function () {
+        $('#user_hr_pending').DataTable();
+    } );
+</script>
